@@ -30,16 +30,12 @@ class trainController():
     def train1Move(self):
         if(self.train1Dist<16):
             self.canvas.move(self.train1, 10, 0)
-            self.x+=10
         elif(self.train1Dist<33):
             self.canvas.move(self.train1, 0, 10)
-            self.y+=10
         elif(self.train1Dist<50):
             self.canvas.move(self.train1, -10, 0)
-            self.x-=10
         elif(self.train1Dist<67):
             self.canvas.move(self.train1, 0, -10)
-            self.y-=10
         elif(self.train1Dist==67):
             self.train1Dist = -1
             self.canvas.move(self.train1, 10, 0)
