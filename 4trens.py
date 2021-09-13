@@ -172,11 +172,22 @@ class trainController():
         self.train4Vel += 100
 
     def startMove(self):
-        self.canvas.after(self.train1Vel, self.train1Move)
-        self.canvas.after(self.train2Vel, self.train2Move)
-        self.canvas.after(self.train3Vel, self.train3Move)
-        self.canvas.after(self.train4Vel, self.train4Move)
-            
+        self.t1.start()
+        self.t2.start()
+        self.t3.start()
+        self.t4.start()
+
+    def setUpThreads(self):
+        self.t1 = threading.Thread(target=self.train1Move)
+        self.t2 = threading.Thread(target=self.train2Move)
+        self.t3 = threading.Thread(target=self.train3Move)
+        self.t4 = threading.Thread(target=self.train4Move)
+
+    def joinThreads(self):
+        self.t1.join()
+        self.t2.join()
+        self.t3.join()
+        self.t4.join()
 
 if __name__ == "__main__":
 
@@ -184,8 +195,11 @@ if __name__ == "__main__":
     root, canvas = controller.setUpUI()
     
     controller.initValues()
+    controller.setUpThreads()
     controller.setUpTracks()
     controller.setUpTrains()
     controller.setUpControlPanel()
 
     root.mainloop()
+
+    controller.joinThreads()
