@@ -1,6 +1,12 @@
 from tkinter import *
 import threading
+import time
 
+mutexL3 = threading.Lock() #L3
+mutexL4 = threading.Lock() #L4
+mutexL5 = threading.Lock() #L5
+mutexL6 = threading.Lock() #L6
+mutexL10 = threading.Lock() #L10
 
 class trainController():
 
@@ -9,10 +15,10 @@ class trainController():
         self.train2Dist = -1
         self.train3Dist = -1
         self.train4Dist = -1
-        self.train1Vel = 400
-        self.train2Vel = 400
-        self.train3Vel = 400
-        self.train4Vel = 400
+        self.train1Vel = 0.4
+        self.train2Vel = 0.4
+        self.train3Vel = 0.4
+        self.train4Vel = 0.4
 
     def setUpUI(self):        
         self.root = Tk()
@@ -37,68 +43,141 @@ class trainController():
         self.train4 = self.canvas.create_rectangle(20, 190, 40, 210, fill="#060301")
 
     def train1Move(self):
-        if(self.train1Dist<16):
-            self.canvas.move(self.train1, 10, 0)
-        elif(self.train1Dist<33):
-            self.canvas.move(self.train1, 0, 10)
-        elif(self.train1Dist<50):
-            self.canvas.move(self.train1, -10, 0)
-        elif(self.train1Dist<67):
-            self.canvas.move(self.train1, 0, -10)
-        elif(self.train1Dist==67):
-            self.train1Dist = -1
-            self.canvas.move(self.train1, 10, 0)
+        while True:
+            print(self.train1Dist, "\n")
+            self.train1Dist+=1
 
-        self.train1Dist+=1
-        self.canvas.after(self.train1Vel, self.train1Move)
+            while -1 < self.train1Dist < 16:
+                self.canvas.move(self.train1, 10, 0)
+                self.train1Dist+=1
+                time.sleep(self.train1Vel)
+            
+            mutexL3.acquire()
+            while 16 <= self.train1Dist < 33:
+                self.canvas.move(self.train1, 0, 10)
+                self.train1Dist+=1
+                time.sleep(self.train1Vel)
+            
+            mutexL4.acquire()
+            mutexL3.release()
+            while 33 <= self.train1Dist < 50:
+                self.canvas.move(self.train1, -10, 0)
+                self.train1Dist+=1
+                time.sleep(self.train1Vel)
+            
+            mutexL4.release()
+            while 50 <= self.train1Dist < 67:
+                self.canvas.move(self.train1, 0, -10)
+                self.train1Dist+=1
+                time.sleep(self.train1Vel)
+            
+            if self.train1Dist==67:
+                self.train1Dist = -1
+                self.canvas.move(self.train1, 10, 0)
+                time.sleep(self.train1Vel)
 
     def train2Move(self):
-        if(self.train2Dist<16):
-            self.canvas.move(self.train2, 10, 0)
-        elif(self.train2Dist<33):
-            self.canvas.move(self.train2, 0, 10)
-        elif(self.train2Dist<50):
-            self.canvas.move(self.train2, -10, 0)
-        elif(self.train2Dist<67):
-            self.canvas.move(self.train2, 0, -10)
-        elif(self.train2Dist==67):
-            self.train2Dist = -1
-            self.canvas.move(self.train2, 10, 0)
+        while True:
+            self.train2Dist+=1
 
-        self.train2Dist+=1
-        self.canvas.after(self.train2Vel, self.train2Move)
+            while -1 < self.train2Dist < 16:
+                self.canvas.move(self.train2, 10, 0)
+                self.train2Dist+=1
+                time.sleep(self.train2Vel)
+            
+            mutexL5.acquire()
+            while 16 <= self.train2Dist < 33:
+                self.canvas.move(self.train2, 0, 10)
+                self.train2Dist+=1
+                time.sleep(self.train2Vel)
+            
+            mutexL6.acquire()
+            mutexL5.release()
+            while 33 <= self.train2Dist < 50:
+                self.canvas.move(self.train2, -10, 0)
+                self.train2Dist+=1
+                time.sleep(self.train2Vel)
+            
+            mutexL3.acquire()
+            mutexL6.release()
+            while 50 <= self.train2Dist < 67:
+                self.canvas.move(self.train2, 0, -10)
+                self.train2Dist+=1
+                time.sleep(self.train2Vel)
+            mutexL3.release()
+            
+            if self.train2Dist==67:
+                self.train2Dist = -1
+                self.canvas.move(self.train2, 10, 0)
+                time.sleep(self.train2Vel)
 
     def train3Move(self):
-        if(self.train3Dist<16):
-            self.canvas.move(self.train3, 10, 0)
-        elif(self.train3Dist<33):
-            self.canvas.move(self.train3, 0, 10)
-        elif(self.train3Dist<50):
-            self.canvas.move(self.train3, -10, 0)
-        elif(self.train3Dist<67):
-            self.canvas.move(self.train3, 0, -10)
-        elif(self.train3Dist==67):
-            self.train3Dist = -1
-            self.canvas.move(self.train3, 10, 0)
+        while True:
+            self.train3Dist+=1
 
-        self.train3Dist+=1
-        self.canvas.after(self.train3Vel, self.train3Move)
+            while -1 < self.train3Dist < 16:
+                self.canvas.move(self.train3, 10, 0)
+                self.train3Dist+=1
+                time.sleep(self.train3Vel)
+            
+            while 16 <= self.train3Dist < 33:
+                self.canvas.move(self.train3, 0, 10)
+                self.train3Dist+=1
+                time.sleep(self.train3Vel)
+            
+            mutexL10.acquire()
+            while 33 <= self.train3Dist < 50:
+                self.canvas.move(self.train3, -10, 0)
+                self.train3Dist+=1
+                time.sleep(self.train3Vel)
+            
+            mutexL5.acquire()
+            mutexL10.release()
+            while 50 <= self.train3Dist < 67:
+                self.canvas.move(self.train3, 0, -10)
+                self.train3Dist+=1
+                time.sleep(self.train3Vel)
+            mutexL5.release()
+            
+            if self.train3Dist==67:
+                self.train3Dist = -1
+                self.canvas.move(self.train3, 10, 0)
+                time.sleep(self.train3Vel)
 
     def train4Move(self):
-        if(self.train4Dist<50):
-            self.canvas.move(self.train4, 10, 0)
-        elif(self.train4Dist<67):
-            self.canvas.move(self.train4, 0, 10)
-        elif(self.train4Dist<118):
-            self.canvas.move(self.train4, -10, 0)
-        elif(self.train4Dist<135):
-            self.canvas.move(self.train4, 0, -10)
-        elif(self.train4Dist==135):
-            self.train4Dist = -1
-            self.canvas.move(self.train4, 10, 0)
-        
-        self.train4Dist+=1
-        self.canvas.after(self.train4Vel, self.train4Move)
+        while True:
+            self.train4Dist+=1
+
+            mutexL4.acquire()
+            mutexL6.acquire()
+            mutexL10.acquire()
+            while -1 < self.train4Dist < 50:
+                self.canvas.move(self.train4, 10, 0)
+                self.train4Dist+=1
+                time.sleep(self.train4Vel)
+            mutexL4.release()
+            
+            while 50 <= self.train4Dist < 67:
+                self.canvas.move(self.train4, 0, 10)
+                self.train4Dist+=1
+                time.sleep(self.train4Vel)
+            mutexL6.release()
+
+            while 67 <= self.train4Dist < 118:
+                self.canvas.move(self.train4, -10, 0)
+                self.train4Dist+=1
+                time.sleep(self.train4Vel)
+            mutexL10.release()
+
+            while 118 <= self.train4Dist < 135:
+                self.canvas.move(self.train4, 0, -10)
+                self.train4Dist+=1
+                time.sleep(self.train4Vel)
+            
+            if self.train4Dist==135:
+                self.train4Dist = -1
+                self.canvas.move(self.train4, 10, 0)
+                time.sleep(self.train4Vel)
 
     def setUpControlPanel(self):
         self.canvas.create_text(720,35,text="Painel de Controle", font="Helvetica 20 bold")
@@ -141,35 +220,35 @@ class trainController():
     
     #define velocity control for train 1
     def increaseTrain1Vel(self):
-        if(self.train1Vel != 100):
-            self.train1Vel -= 100
+        if self.train1Vel > 0.2:
+            self.train1Vel -= 0.1
 
     def decreaseTrain1Vel(self):
-        self.train1Vel += 100
+        self.train1Vel += 0.1
 
     #define velocity control for train 2
     def increaseTrain2Vel(self):
-        if(self.train2Vel != 100):
-            self.train2Vel -= 100
+        if self.train2Vel > 0.2:
+            self.train2Vel -= 0.1
 
     def decreaseTrain2Vel(self):
-        self.train2Vel += 100
+        self.train2Vel += 0.1
 
     #define velocity control for train 3
     def increaseTrain3Vel(self):
-        if(self.train3Vel != 100):
-            self.train3Vel -= 100
+        if self.train3Vel > 0.2:
+            self.train3Vel -= 0.1
 
     def decreaseTrain3Vel(self):
-        self.train3Vel += 100
+        self.train3Vel += 0.1
 
     #define velocity control for train 4
     def increaseTrain4Vel(self):
-        if(self.train4Vel != 100):
-            self.train4Vel -= 100
+        if self.train4Vel > 0.2:
+            self.train4Vel -= 0.1
 
     def decreaseTrain4Vel(self):
-        self.train4Vel += 100
+        self.train4Vel += 0.1
 
     def startMove(self):
         self.t1.start()
@@ -202,4 +281,4 @@ if __name__ == "__main__":
 
     root.mainloop()
 
-    controller.joinThreads()
+    # controller.joinThreads()
