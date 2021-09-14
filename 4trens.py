@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter.ttk import Label
 import threading
 import time
 
@@ -300,12 +299,6 @@ class trainController():
         self.t3 = threading.Thread(target=self.train3Move)
         self.t4 = threading.Thread(target=self.train4Move)
 
-    def joinThreads(self):
-        self.t1.join()
-        self.t2.join()
-        self.t3.join()
-        self.t4.join()
-
 if __name__ == "__main__":
 
     controller = trainController()
@@ -319,5 +312,3 @@ if __name__ == "__main__":
     controller.velControlPanel()
 
     root.mainloop()
-
-    # controller.joinThreads()
