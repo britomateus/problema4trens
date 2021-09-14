@@ -44,7 +44,6 @@ class trainController():
 
     def train1Move(self):
         while True:
-            print(self.train1Dist, "\n")
             self.train1Dist+=1
 
             while -1 < self.train1Dist < 16:
