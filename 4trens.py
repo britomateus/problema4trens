@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import Label
 import threading
 import time
 
@@ -194,8 +195,8 @@ class trainController():
         self.canvas.create_text(720,35,text="Painel de Controle", font="Helvetica 20 bold")
 
         #define button play content
-        self.play = Button(self.root, text="Iniciar", width=5, font="Helvetica 15 bold", command=self.startMove)
-        self.canvas.create_window(720,70,window=self.play)
+        self.play = Button(self.root, text="Iniciar", height=2, width=20, font="Helvetica 15 bold", command=self.startMove)
+        self.canvas.create_window(738,348,window=self.play)
         
         #define train 1 control panel
         self.canvas.create_text(600,110,text="Trem 1", font="Helvetica 15")
@@ -229,6 +230,22 @@ class trainController():
         self.decreaseTrain4 = Button(self.root, text="-", width=3, font="Helvetica 20 bold", command=self.decreaseTrain4Vel)
         self.canvas.create_window(800,230,window=self.decreaseTrain4)
     
+    def velControlPanel(self):
+        #define train 1 control panel
+        self.canvas.create_rectangle(845, 92, 875, 128, fill="#63ccdb")
+        self.canvas.create_text(860,110,text=str(self.train1Vel)[2:3])
+
+        self.canvas.create_rectangle(845, 132, 875, 168, fill="#af96f9")
+        self.canvas.create_text(860,150,text=str(self.train2Vel)[2:3])
+
+        self.canvas.create_rectangle(845, 172, 875, 208, fill="#fdc300")
+        self.canvas.create_text(860,190,text=str(self.train3Vel)[2:3])
+
+        self.canvas.create_rectangle(845, 212, 875, 248, fill="#fe4e6c")
+        self.canvas.create_text(860,230,text=str(self.train4Vel)[2:3])
+
+        self.canvas.after(10, self.velControlPanel)
+
     #define velocity control for train 1
     def increaseTrain1Vel(self):
         if self.train1Vel > 0.2:
@@ -289,6 +306,7 @@ if __name__ == "__main__":
     controller.setUpTracks()
     controller.setUpTrains()
     controller.setUpControlPanel()
+    controller.velControlPanel()
 
     root.mainloop()
 
