@@ -57,15 +57,15 @@ class trainController():
                 self.canvas.move(self.train1, 0, 10)
                 self.train1Dist+=1
                 time.sleep(self.train1Vel)
-            
-            mutexL4.acquire()
             mutexL3.release()
+
+            mutexL4.acquire()
             while 33 <= self.train1Dist < 50:
                 self.canvas.move(self.train1, -10, 0)
                 self.train1Dist+=1
                 time.sleep(self.train1Vel)
-            
             mutexL4.release()
+
             while 50 <= self.train1Dist < 67:
                 self.canvas.move(self.train1, 0, -10)
                 self.train1Dist+=1
@@ -90,16 +90,16 @@ class trainController():
                 self.canvas.move(self.train2, 0, 10)
                 self.train2Dist+=1
                 time.sleep(self.train2Vel)
+            mutexL5.release()
             
             mutexL6.acquire()
-            mutexL5.release()
             while 33 <= self.train2Dist < 50:
                 self.canvas.move(self.train2, -10, 0)
                 self.train2Dist+=1
                 time.sleep(self.train2Vel)
+            mutexL6.release()
             
             mutexL3.acquire()
-            mutexL6.release()
             while 50 <= self.train2Dist < 67:
                 self.canvas.move(self.train2, 0, -10)
                 self.train2Dist+=1
@@ -129,10 +129,10 @@ class trainController():
             while 33 <= self.train3Dist < 50:
                 self.canvas.move(self.train3, -10, 0)
                 self.train3Dist+=1
-                time.sleep(self.train3Vel)
+                time.sleep(self.train3Vel)            
+            mutexL10.release()
             
             mutexL5.acquire()
-            mutexL10.release()
             while 50 <= self.train3Dist < 67:
                 self.canvas.move(self.train3, 0, -10)
                 self.train3Dist+=1
@@ -151,23 +151,34 @@ class trainController():
             mutexL4.acquire()
             mutexL6.acquire()
             mutexL10.acquire()
-            while -1 < self.train4Dist < 50:
+
+            while -1 < self.train4Dist < 16:
                 self.canvas.move(self.train4, 10, 0)
                 self.train4Dist+=1
                 time.sleep(self.train4Vel)
             mutexL4.release()
-            
+
+            while 16 <= self.train4Dist < 33:
+                self.canvas.move(self.train4, 10, 0)
+                self.train4Dist+=1
+                time.sleep(self.train4Vel)
+            mutexL6.release()
+
+            while 33 <= self.train4Dist < 50:
+                self.canvas.move(self.train4, 10, 0)
+                self.train4Dist+=1
+                time.sleep(self.train4Vel)
+            mutexL10.release()
+
             while 50 <= self.train4Dist < 67:
                 self.canvas.move(self.train4, 0, 10)
                 self.train4Dist+=1
                 time.sleep(self.train4Vel)
-            mutexL6.release()
 
             while 67 <= self.train4Dist < 118:
                 self.canvas.move(self.train4, -10, 0)
                 self.train4Dist+=1
                 time.sleep(self.train4Vel)
-            mutexL10.release()
 
             while 118 <= self.train4Dist < 135:
                 self.canvas.move(self.train4, 0, -10)
