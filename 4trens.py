@@ -231,18 +231,28 @@ class trainController():
         self.canvas.create_window(800,230,window=self.decreaseTrain4)
     
     def velControlPanel(self):
-        #define train 1 control panel
+        mapper: dict() = {
+            '4': 10,
+            '3': 20,
+            '2': 30,
+            '1': 40,
+            '5': 8,
+            '6': 6,
+            '7': 4,
+            '8': 2
+        }
+
         self.canvas.create_rectangle(845, 92, 875, 128, fill="#63ccdb")
-        self.canvas.create_text(860,110,text=str(self.train1Vel)[2:3])
+        self.canvas.create_text(860,110,text=mapper[str(self.train1Vel)[2:3]])
 
         self.canvas.create_rectangle(845, 132, 875, 168, fill="#af96f9")
-        self.canvas.create_text(860,150,text=str(self.train2Vel)[2:3])
+        self.canvas.create_text(860,150,text=mapper[str(self.train2Vel)[2:3]])
 
         self.canvas.create_rectangle(845, 172, 875, 208, fill="#fdc300")
-        self.canvas.create_text(860,190,text=str(self.train3Vel)[2:3])
+        self.canvas.create_text(860,190,text=mapper[str(self.train3Vel)[2:3]])
 
         self.canvas.create_rectangle(845, 212, 875, 248, fill="#fe4e6c")
-        self.canvas.create_text(860,230,text=str(self.train4Vel)[2:3])
+        self.canvas.create_text(860,230,text=mapper[str(self.train4Vel)[2:3]])
 
         self.canvas.after(10, self.velControlPanel)
 
