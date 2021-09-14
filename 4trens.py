@@ -37,10 +37,10 @@ class trainController():
         self.canvas.create_rectangle(30, 200, 540, 370, outline="#fe4e6c", width=5)
 
     def setUpTrains(self):
-        self.train1 = self.canvas.create_rectangle(20, 20, 40, 40, fill="#060301")
-        self.train2 = self.canvas.create_rectangle(190, 20, 210, 40, fill="#060301")
-        self.train3 = self.canvas.create_rectangle(360, 20, 380, 40, fill="#060301")
-        self.train4 = self.canvas.create_rectangle(20, 190, 40, 210, fill="#060301")
+        self.train1 = self.canvas.create_rectangle(20, 20, 40, 40, fill="#63ccdb")
+        self.train2 = self.canvas.create_rectangle(190, 20, 210, 40, fill="#af96f9")
+        self.train3 = self.canvas.create_rectangle(360, 20, 380, 40, fill="#fdc300")
+        self.train4 = self.canvas.create_rectangle(20, 190, 40, 210, fill="#fe4e6c")
 
     def train1Move(self):
         while True:
